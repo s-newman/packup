@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import argparse
 import subprocess
 import tarfile
 from io import BytesIO
@@ -7,6 +8,14 @@ from tarfile import TarFile, TarInfo
 from typing import List
 
 HOMEDIR = Path.home()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("filename", help="The path to write the final tarball to.")
+
+    return parser.parse_args()
 
 
 def get_cmd_output(cmd: List[str]) -> bytes:
@@ -22,15 +31,34 @@ def add_bytes(name: str, data: bytes, tarball: TarFile):
 
 
 def main():
+    args = parse_args()
+
     packages = get_cmd_output(["pacman", "-Qqent"])
     aur = get_cmd_output(["pacman", "-Qqem"])
     vscode = get_cmd_output(["code", "--list-extensions"])
 
-    tarball = tarfile.open("out.tar.xz", "w:xz")
+    tarball = tarfile.open(args.filename, "w:xz")
 
     add_bytes("packages.txt", packages, tarball)
     add_bytes("aur-packages.txt", aur, tarball)
     add_bytes("vscode-extensions.txt", vscode, tarball)
+
+    folders = [
+        "docs",
+        "pics",
+        "music",
+        "go",
+        "tmp",
+        "proj",
+        "ctf",
+        "tmp-2",
+        "videos",
+        "ceph",
+        ".ssh",
+        "vpns",
+    ]
+    for folder in folders:
+        tarball.add(str(HOMEDIR / folder), arcname=folder)
 
     tarball.close()
 
