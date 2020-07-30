@@ -56,6 +56,7 @@ def main():
         "ceph",
         ".ssh",
         "vpns",
+        ".kube",
     ]
     for folder in folders:
         tarball.add(str(HOMEDIR / folder), arcname=folder)
