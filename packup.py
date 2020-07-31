@@ -47,7 +47,6 @@ def main():
         "go",
         "local",
         "tmp",
-        "tmp-2",
         ".ssh",
         ".kube",
     ]
