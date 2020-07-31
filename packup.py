@@ -44,18 +44,11 @@ def main():
     add_bytes("vscode-extensions.txt", vscode, tarball)
 
     folders = [
-        "docs",
-        "pics",
-        "music",
         "go",
+        "local",
         "tmp",
-        "proj",
-        "ctf",
         "tmp-2",
-        "videos",
-        "ceph",
         ".ssh",
-        "vpns",
         ".kube",
     ]
     for folder in folders:
