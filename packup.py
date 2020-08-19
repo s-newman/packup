@@ -33,7 +33,7 @@ def add_bytes(name: str, data: bytes, tarball: TarFile):
 def main():
     args = parse_args()
 
-    packages = get_cmd_output(["pacman", "-Qqent"])
+    packages = get_cmd_output(["pacman", "-Qqentt"])
     aur = get_cmd_output(["pacman", "-Qqem"])
     vscode = get_cmd_output(["code", "--list-extensions"])
 
